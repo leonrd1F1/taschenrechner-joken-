@@ -4,92 +4,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🧠 BRAINROT CALCULATOR 🧠</title>
+<title>🧠 BRAINROT CALCULATOR</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap');
-
 * {
     box-sizing: border-box;
-    user-select: none;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
-    background:
-        radial-gradient(circle at 20% 20%, #ff00cc 0 5%, transparent 25%),
-        radial-gradient(circle at 80% 30%, #00ffff 0 5%, transparent 25%),
-        radial-gradient(circle at 50% 90%, #7d00ff 0 5%, transparent 30%),
-        #090014;
-    font-family: "Comic Neue", cursive;
+    font-family: Arial, sans-serif;
     color: white;
+
+    background:
+        radial-gradient(circle at 10% 20%, #ff00cc, transparent 25%),
+        radial-gradient(circle at 90% 20%, #00ffff, transparent 25%),
+        radial-gradient(circle at 50% 100%, #7200ff, transparent 30%),
+        #090014;
 }
 
-/* ================= BACKGROUND ================= */
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-    background-size: 30px 30px;
-    animation: gridMove 5s linear infinite;
-}
-
-@keyframes gridMove {
-    from { background-position: 0 0; }
-    to { background-position: 30px 30px; }
-}
-
-/* ================= HEADER ================= */
+/* ===== HEADER ===== */
 
 .header {
     text-align: center;
-    padding: 18px;
-    position: relative;
-    z-index: 5;
+    padding: 20px;
 }
 
 .title {
-    font-family: "Press Start 2P", monospace;
-    font-size: clamp(20px, 4vw, 45px);
-    color: #fff;
+    font-size: clamp(25px, 5vw, 55px);
+    font-weight: 1000;
+
+    color: white;
+
     text-shadow:
-        4px 4px #ff00cc,
-        -4px -4px #00ffff,
-        0 0 25px #ff00cc;
-    animation: titleShake .35s infinite alternate;
+        5px 5px #ff00cc,
+        -5px -5px #00ffff,
+        0 0 30px #ff00cc;
+
+    animation: shake .25s infinite alternate;
 }
 
 .subtitle {
-    font-size: 22px;
-    font-weight: bold;
     color: #ffff00;
-    text-shadow: 2px 2px #ff00cc;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-@keyframes titleShake {
-    from { transform: rotate(-1deg); }
-    to { transform: rotate(1deg); }
+@keyframes shake {
+    from {
+        transform: rotate(-1deg);
+    }
+
+    to {
+        transform: rotate(1deg);
+    }
 }
 
-/* ================= LAYOUT ================= */
+/* ===== LAYOUT ===== */
 
 .main {
-    display: grid;
-    grid-template-columns: minmax(180px, 1fr) minmax(320px, 500px) minmax(180px, 1fr);
-    gap: 25px;
-    max-width: 1400px;
+    width: min(1400px, 95%);
     margin: auto;
-    padding: 10px 25px 40px;
-    position: relative;
-    z-index: 2;
+
+    display: grid;
+    grid-template-columns: 1fr 500px 1fr;
+    gap: 25px;
 }
+
+/* ===== SIDE ===== */
 
 .side {
     display: flex;
@@ -97,143 +81,192 @@ body::before {
     gap: 20px;
 }
 
-/* ================= BRAINROT CARDS ================= */
+.card {
+    padding: 20px;
+    min-height: 150px;
 
-.brainrot {
-    position: relative;
-    min-height: 130px;
     border: 4px solid white;
-    border-radius: 20px;
-    padding: 15px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #ff00cc, #6500ff);
+    border-radius: 25px;
+
+    background: linear-gradient(
+        135deg,
+        #ff00cc,
+        #7000ff
+    );
+
     box-shadow:
-        0 0 10px #ff00cc,
-        0 0 30px #6500ff,
-        8px 8px 0 #00ffff;
-    animation: float 2s ease-in-out infinite alternate;
+        0 0 20px #ff00cc,
+        10px 10px #00ffff;
+
+    animation: float 2s infinite alternate;
 }
 
-.brainrot:nth-child(2) {
-    background: linear-gradient(135deg, #00c8ff, #003cff);
-    animation-delay: .4s;
+.card:nth-child(2) {
+    background: linear-gradient(
+        135deg,
+        #00c8ff,
+        #003cff
+    );
 }
 
-.brainrot:nth-child(3) {
-    background: linear-gradient(135deg, #ff8a00, #ff0055);
-    animation-delay: .8s;
+.card:nth-child(3) {
+    background: linear-gradient(
+        135deg,
+        #ff7700,
+        #ff0055
+    );
 }
 
 @keyframes float {
-    from { transform: translateY(-5px) rotate(-1deg); }
-    to { transform: translateY(5px) rotate(1deg); }
+    from {
+        transform: translateY(-5px) rotate(-1deg);
+    }
+
+    to {
+        transform: translateY(5px) rotate(1deg);
+    }
 }
 
-.brainrot h2 {
-    margin: 0 0 8px;
-    font-size: 22px;
-}
-
-.big-emoji {
+.big {
     font-size: 55px;
-    position: absolute;
-    right: 8px;
-    bottom: -8px;
-    animation: spin 3s linear infinite;
+    float: right;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* ================= CALCULATOR ================= */
+/* ===== CALCULATOR ===== */
 
 .calculator {
-    background: rgba(10, 5, 25, .92);
-    border: 5px solid #fff;
+    background: rgba(5,5,15,.95);
+
+    border: 5px solid white;
     border-radius: 30px;
+
     padding: 20px;
+
     box-shadow:
-        0 0 15px #00ffff,
-        0 0 50px #ff00cc,
-        15px 15px 0 #ff00cc;
-    transform: rotate(.5deg);
+        0 0 20px #00ffff,
+        0 0 60px #ff00cc;
+
+    position: relative;
 }
 
-.calc-top {
+.calc-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    margin-bottom: 15px;
 }
 
-.calc-logo {
-    font-family: "Press Start 2P";
-    font-size: 13px;
+.logo {
     color: #00ffff;
+    font-weight: 1000;
+    font-size: 18px;
 }
 
 .level {
     background: #ff00cc;
-    padding: 7px 12px;
+    padding: 8px 15px;
     border-radius: 20px;
     font-weight: bold;
 }
 
+/* ===== DISPLAY ===== */
+
 .display {
-    margin: 15px 0;
     background: #020207;
+
     border: 4px solid #00ffff;
     border-radius: 15px;
-    min-height: 110px;
+
+    min-height: 120px;
+
     padding: 15px;
+
+    margin-bottom: 15px;
+
     text-align: right;
-    overflow: hidden;
+
+    box-shadow:
+        inset 0 0 20px #00ffff;
 }
 
 .history {
     height: 25px;
-    color: #888;
-    font-size: 18px;
+    color: #777;
 }
 
 .result {
-    font-family: "Press Start 2P";
+    margin-top: 15px;
+
     color: #00ff66;
-    font-size: clamp(18px, 4vw, 30px);
+
+    font-size: 35px;
+    font-weight: bold;
+
     overflow-x: auto;
     white-space: nowrap;
-    text-shadow: 0 0 10px #00ff66;
+
+    text-shadow:
+        0 0 10px #00ff66;
 }
+
+/* ===== BUTTONS ===== */
 
 .buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
     gap: 10px;
 }
 
 button {
+    height: 65px;
+
     border: 3px solid white;
     border-radius: 15px;
-    min-height: 65px;
-    font-family: "Comic Neue";
+
+    background: #241035;
+
+    color: white;
+
     font-size: 25px;
     font-weight: bold;
-    color: white;
-    background: #261040;
+
     cursor: pointer;
-    box-shadow: 0 5px 0 #000;
-    transition: .08s;
+
+    transition:
+        transform .08s,
+        background .08s,
+        box-shadow .08s;
 }
+
+/* DAS IST DIE WICHTIGE BUTTON-WIRKUNG */
 
 button:hover {
-    transform: scale(1.06) rotate(-2deg);
-    background: #4d147d;
-    box-shadow: 0 0 20px #ff00cc;
+    background: #6519a0;
+
+    transform:
+        scale(1.08)
+        rotate(-2deg);
+
+    box-shadow:
+        0 0 20px #ff00cc;
 }
 
-button:active {
-    transform: translateY(5px);
-    box-shadow: 0 0 0 #000;
+button:active,
+button.clicked {
+    transform:
+        scale(.88)
+        rotate(5deg);
+
+    background: #00ffff;
+
+    color: black;
+
+    box-shadow:
+        0 0 35px #00ffff;
 }
 
 .operator {
@@ -241,7 +274,7 @@ button:active {
 }
 
 .equals {
-    background: #00aaff;
+    background: #008cff;
 }
 
 .danger {
@@ -252,78 +285,117 @@ button:active {
     grid-column: span 2;
 }
 
-/* ================= MINI GAMES ================= */
+/* ===== GAMES ===== */
 
 .game {
-    background: rgba(0,0,0,.75);
-    border: 3px dashed #ffff00;
-    border-radius: 20px;
     padding: 15px;
+
+    background: rgba(0,0,0,.8);
+
+    border: 3px dashed yellow;
+    border-radius: 20px;
+
     text-align: center;
 }
 
-.game h3 {
-    color: #ffff00;
-    margin-top: 0;
-}
-
 .game button {
-    min-height: 50px;
-    font-size: 18px;
     width: 100%;
+    height: 55px;
+    font-size: 18px;
 }
 
 .score {
-    font-size: 30px;
     color: #00ffff;
-    font-family: "Press Start 2P";
+    font-size: 35px;
+    font-weight: bold;
 }
 
-/* ================= FLOATING BRAINROT ================= */
+/* ===== COMBO ===== */
 
-.floating {
+.combo {
+    text-align: center;
+
+    margin-top: 15px;
+
+    color: yellow;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* ===== POPUP ===== */
+
+.popup {
     position: fixed;
-    z-index: 1;
-    font-size: 45px;
+
     pointer-events: none;
-    animation: fly 8s linear infinite;
+
+    font-size: 30px;
+    font-weight: 1000;
+
+    color: #ffff00;
+
+    text-shadow:
+        3px 3px #ff00cc;
+
+    z-index: 9999;
+
+    animation: popup 1s forwards;
 }
 
-@keyframes fly {
+@keyframes popup {
+
     0% {
-        transform: translate(-100px, 100vh) rotate(0);
-    }
-    100% {
-        transform: translate(110vw, -100px) rotate(720deg);
-    }
-}
-
-/* ================= PARTICLES ================= */
-
-.particle {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    pointer-events: none;
-    z-index: 999;
-    animation: particle .8s forwards;
-}
-
-@keyframes particle {
-    to {
         transform:
-            translate(
-                calc((var(--x) - 50) * 5px),
-                calc((var(--y) - 50) * 5px)
-            )
-            rotate(720deg);
+            translateY(0)
+            scale(.5);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-100px)
+            scale(1.5);
+
         opacity: 0;
     }
 }
 
-/* ================= MOBILE ================= */
+/* ===== PARTICLES ===== */
 
-@media(max-width: 900px) {
+.particle {
+    position: fixed;
+
+    width: 12px;
+    height: 12px;
+
+    pointer-events: none;
+
+    z-index: 9998;
+
+    border-radius: 50%;
+
+    animation:
+        particle .7s forwards;
+}
+
+@keyframes particle {
+
+    to {
+        transform:
+            translate(
+                calc(var(--x) * 1px),
+                calc(var(--y) * 1px)
+            );
+
+        opacity: 0;
+    }
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width: 950px) {
+
     .main {
         grid-template-columns: 1fr;
         max-width: 550px;
@@ -333,23 +405,20 @@ button:active {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
-
-    .brainrot {
-        min-height: 110px;
-    }
 }
 
-@media(max-width: 500px) {
-    .side {
-        grid-template-columns: 1fr;
-    }
+@media(max-width: 550px) {
 
-    .calculator {
-        padding: 12px;
+    .side {
+        display: flex;
     }
 
     button {
-        min-height: 58px;
+        height: 58px;
+    }
+
+    .result {
+        font-size: 25px;
     }
 }
 </style>
@@ -357,338 +426,1048 @@ button:active {
 
 <body>
 
-<div class="floating">💀</div>
-<div class="floating" style="animation-delay:2s;">🗿</div>
-<div class="floating" style="animation-delay:4s;">🍌</div>
-<div class="floating" style="animation-delay:6s;">🔥</div>
-
 <header class="header">
-    <div class="title">🧠 BRAINROT CALCULATOR 🧠</div>
-    <div class="subtitle">
-        SIGMA MATHS • +1000 AURA • NO THOUGHTS
+
+    <div class="title">
+        🧠 BRAINROT CALCULATOR 🧠
     </div>
+
+    <div class="subtitle">
+        +1000 AURA • SIGMA MATH • ABSOLUTE CINEMA
+    </div>
+
 </header>
+
 
 <main class="main">
 
-    <!-- LEFT SIDE -->
+<!-- ================= LEFT ================= -->
 
-    <aside class="side">
+<div class="side">
 
-        <div class="brainrot">
-            <h2>🗿 SIGMA MODE</h2>
-            <p>Calculate like a TRUE SIGMA.</p>
-            <div class="big-emoji">🗿</div>
+    <div class="card">
+
+        <h2>🗿 SIGMA MODE</h2>
+
+        <p>
+            Mathematics but make it illegal.
+        </p>
+
+        <div class="big">🗿</div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>💀 SKIBIDI</h2>
+
+        <p>
+            The calculator is calculating.
+        </p>
+
+        <div class="big">🚽</div>
+
+    </div>
+
+
+    <div class="game">
+
+        <h3>⚡ AURA CLICKER</h3>
+
+        <div class="score" id="aura">
+            0
         </div>
 
-        <div class="brainrot">
-            <h2>💀 SKIBIDI</h2>
-            <p>Toilet detected.</p>
-            <div class="big-emoji">🚽</div>
+        <button id="auraButton">
+            + AURA 💀
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CALCULATOR ================= -->
+
+<div class="calculator">
+
+    <div class="calc-header">
+
+        <div class="logo">
+            🧮 CALC.EXE
         </div>
 
-        <div class="game">
-            <h3>⚡ AURA CLICKER</h3>
-            <div class="score" id="aura">0</div>
-            <p>Click for AURA</p>
-            <button onclick="getAura()">+ AURA 💀</button>
+        <div class="level">
+            LVL <span id="level">1</span>
         </div>
 
-    </aside>
+    </div>
 
 
-    <!-- CALCULATOR -->
+    <div class="display">
 
-    <section class="calculator">
-
-        <div class="calc-top">
-            <div class="calc-logo">🧮 CALC.EXE</div>
-            <div class="level">LVL <span id="level">1</span></div>
+        <div
+            class="history"
+            id="history">
         </div>
 
-        <div class="display">
-            <div class="history" id="history"></div>
-            <div class="result" id="display">0</div>
+        <div
+            class="result"
+            id="display">
+            0
         </div>
 
-        <div class="buttons">
-
-            <button class="danger" onclick="clearCalc()">AC</button>
-            <button onclick="backspace()">⌫</button>
-            <button onclick="percent()">%</button>
-            <button class="operator" onclick="operator('/')">÷</button>
-
-            <button onclick="number('7')">7</button>
-            <button onclick="number('8')">8</button>
-            <button onclick="number('9')">9</button>
-            <button class="operator" onclick="operator('*')">×</button>
-
-            <button onclick="number('4')">4</button>
-            <button onclick="number('5')">5</button>
-            <button onclick="number('6')">6</button>
-            <button class="operator" onclick="operator('-')">−</button>
-
-            <button onclick="number('1')">1</button>
-            <button onclick="number('2')">2</button>
-            <button onclick="number('3')">3</button>
-            <button class="operator" onclick="operator('+')">+</button>
-
-            <button class="zero" onclick="number('0')">0</button>
-            <button onclick="number('.')">.</button>
-            <button class="equals" onclick="calculate()">=</button>
-
-        </div>
-
-        <div style="text-align:center;margin-top:15px;color:#ffff00;">
-            🔥 COMBO: <span id="combo">0</span> 🔥
-        </div>
-
-    </section>
+    </div>
 
 
-    <!-- RIGHT SIDE -->
+    <div class="buttons">
 
-    <aside class="side">
+        <button
+            class="danger"
+            data-action="clear">
+            AC
+        </button>
 
-        <div class="brainrot">
-            <h2>🔥 GYATT</h2>
-            <p>Mathematics has never been this dangerous.</p>
-            <div class="big-emoji">🍑</div>
-        </div>
+        <button
+            data-action="backspace">
+            ⌫
+        </button>
 
-        <div class="brainrot">
-            <h2>⚡ OHIO</h2>
-            <p>You entered the calculator. There is no escape.</p>
-            <div class="big-emoji">👹</div>
-        </div>
+        <button
+            data-action="percent">
+            %
+        </button>
 
-        <div class="game">
-            <h3>💀 BRAINROT BOSS</h3>
-            <p id="bossText">The boss has <b>100 HP</b></p>
-            <button onclick="attackBoss()">ATTACK 🗿</button>
-            <div style="margin-top:10px">
-                HP:
-                <progress id="bossHP" value="100" max="100"></progress>
-            </div>
-        </div>
+        <button
+            class="operator"
+            data-value="/">
+            ÷
+        </button>
 
-    </aside>
+
+        <button data-value="7">
+            7
+        </button>
+
+        <button data-value="8">
+            8
+        </button>
+
+        <button data-value="9">
+            9
+        </button>
+
+        <button
+            class="operator"
+            data-value="*">
+            ×
+        </button>
+
+
+        <button data-value="4">
+            4
+        </button>
+
+        <button data-value="5">
+            5
+        </button>
+
+        <button data-value="6">
+            6
+        </button>
+
+        <button
+            class="operator"
+            data-value="-">
+            −
+        </button>
+
+
+        <button data-value="1">
+            1
+        </button>
+
+        <button data-value="2">
+            2
+        </button>
+
+        <button data-value="3">
+            3
+        </button>
+
+        <button
+            class="operator"
+            data-value="+">
+            +
+        </button>
+
+
+        <button
+            class="zero"
+            data-value="0">
+            0
+        </button>
+
+        <button data-value=".">
+            .
+        </button>
+
+        <button
+            class="equals"
+            data-action="equals">
+            =
+        </button>
+
+    </div>
+
+
+    <div class="combo">
+        🔥 COMBO:
+        <span id="combo">0</span>
+    </div>
+
+</div>
+
+
+<!-- ================= RIGHT ================= -->
+
+<div class="side">
+
+    <div class="card">
+
+        <h2>🔥 GYATT</h2>
+
+        <p>
+            This calculator has too much aura.
+        </p>
+
+        <div class="big">🍑</div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>👹 OHIO</h2>
+
+        <p>
+            There is no escape.
+        </p>
+
+        <div class="big">👹</div>
+
+    </div>
+
+
+    <div class="game">
+
+        <h3>💀 BRAINROT BOSS</h3>
+
+        <p id="bossText">
+            Boss HP: 100
+        </p>
+
+        <button id="attackButton">
+            ATTACK 🗿
+        </button>
+
+        <br><br>
+
+        <progress
+            id="bossHP"
+            value="100"
+            max="100">
+        </progress>
+
+    </div>
+
+</div>
 
 </main>
 
+
 <script>
 
-/* ================= CALCULATOR ================= */
+/* =====================================================
+   TASCHENRECHNER
+===================================================== */
 
 let current = "";
-let previous = "";
-let currentOperator = null;
+let firstNumber = null;
+let operator = null;
+
 let combo = 0;
 let level = 1;
 
-const display = document.getElementById("display");
-const history = document.getElementById("history");
+const display =
+    document.getElementById("display");
+
+const history =
+    document.getElementById("history");
+
+const comboDisplay =
+    document.getElementById("combo");
+
+const levelDisplay =
+    document.getElementById("level");
+
+
+/* DISPLAY */
 
 function updateDisplay() {
-    display.textContent = current || "0";
+
+    if (current === "") {
+
+        display.textContent = "0";
+
+    } else {
+
+        display.textContent = current;
+
+    }
 }
 
-function number(n) {
 
-    if (n === "." && current.includes(".")) return;
+/* ZAHL */
 
-    if (current === "0" && n !== ".") {
-        current = n;
-    } else {
-        current += n;
+function addNumber(value) {
+
+    /*
+       Verhindert mehrere Punkte:
+       4.5.6 wäre ungültig
+    */
+
+    if (
+        value === "." &&
+        current.includes(".")
+    ) {
+        return;
     }
+
+
+    /*
+       Wenn 0 angezeigt wird
+       und eine andere Zahl kommt
+    */
+
+    if (
+        current === "0" &&
+        value !== "."
+    ) {
+
+        current = value;
+
+    } else {
+
+        current += value;
+
+    }
+
 
     updateDisplay();
-    combo++;
-    updateCombo();
-    particles();
+
+    addCombo();
+
+    buttonEffect();
+
 }
 
-function operator(op) {
 
-    if (!current && !previous) return;
+/* OPERATOR */
 
-    if (current) {
-        previous = current;
-        current = "";
+function chooseOperator(op) {
+
+    if (current === "") {
+        return;
     }
 
-    currentOperator = op;
+
+    firstNumber =
+        parseFloat(current);
+
+    operator = op;
+
+    current = "";
+
+
+    let symbol = op;
+
+    if (op === "*") symbol = "×";
+    if (op === "/") symbol = "÷";
+    if (op === "-") symbol = "−";
+
 
     history.textContent =
-        previous + " " + symbol(op);
+        firstNumber + " " + symbol;
+
 
     updateDisplay();
+
+    addCombo();
+
 }
 
-function symbol(op) {
-    if (op === "*") return "×";
-    if (op === "/") return "÷";
-    if (op === "-") return "−";
-    return "+";
-}
+
+/* BERECHNEN */
 
 function calculate() {
 
-    if (!previous || !current || !currentOperator) return;
+    if (
+        firstNumber === null ||
+        operator === null ||
+        current === ""
+    ) {
+        return;
+    }
 
-    let a = parseFloat(previous);
-    let b = parseFloat(current);
+
+    const secondNumber =
+        parseFloat(current);
+
     let result;
 
-    switch(currentOperator) {
-        case "+": result = a + b; break;
-        case "-": result = a - b; break;
-        case "*": result = a * b; break;
-        case "/":
-            if (b === 0) {
-                result = "💀";
-            } else {
-                result = a / b;
-            }
-            break;
+
+    if (operator === "+") {
+
+        result =
+            firstNumber + secondNumber;
+
     }
+
+    else if (operator === "-") {
+
+        result =
+            firstNumber - secondNumber;
+
+    }
+
+    else if (operator === "*") {
+
+        result =
+            firstNumber * secondNumber;
+
+    }
+
+    else if (operator === "/") {
+
+        if (secondNumber === 0) {
+
+            result = "💀 ERROR";
+
+        } else {
+
+            result =
+                firstNumber / secondNumber;
+
+        }
+
+    }
+
 
     history.textContent =
-        previous + " " + symbol(currentOperator) + " " + current + " =";
+        firstNumber +
+        " " +
+        operator +
+        " " +
+        secondNumber +
+        " =";
 
-    current = String(result);
-    previous = "";
-    currentOperator = null;
+
+    current =
+        String(result);
+
+    firstNumber = null;
+
+    operator = null;
+
+
+    updateDisplay();
+
 
     combo += 5;
-    level = Math.floor(combo / 20) + 1;
 
-    updateDisplay();
     updateCombo();
 
-    document.getElementById("level").textContent = level;
+    updateLevel();
 
-    megaParticles();
+
+    /*
+       GROSSE EXPLOSION
+    */
+
+    createParticles(30);
+
+    showPopup("🔥 BIG W 🔥");
+
 }
 
-function clearCalc() {
+
+/* CLEAR */
+
+function clearCalculator() {
+
     current = "";
-    previous = "";
-    currentOperator = null;
+
+    firstNumber = null;
+
+    operator = null;
+
     history.textContent = "";
+
     updateDisplay();
+
+    showPopup("🧹 RESET");
+
 }
+
+
+/* BACKSPACE */
 
 function backspace() {
-    current = current.slice(0, -1);
+
+    current =
+        current.slice(0, -1);
+
     updateDisplay();
-}
 
-function percent() {
+    showPopup("⌫");
 
-    if (current) {
-        current = String(parseFloat(current) / 100);
-        updateDisplay();
-    }
-}
-
-function updateCombo() {
-    document.getElementById("combo").textContent = combo;
 }
 
 
-/* ================= KEYBOARD ================= */
+/* PROZENT */
 
-document.addEventListener("keydown", e => {
+function percentage() {
 
-    if (!isNaN(e.key)) {
-        number(e.key);
+    if (current === "") {
+        return;
     }
 
-    if (["+", "-", "*", "/"].includes(e.key)) {
-        operator(e.key);
-    }
+    current =
+        String(
+            parseFloat(current) / 100
+        );
 
-    if (e.key === "Enter" || e.key === "=") {
-        calculate();
-    }
+    updateDisplay();
 
-    if (e.key === "Backspace") {
-        backspace();
-    }
+    addCombo();
 
-    if (e.key === "Escape") {
-        clearCalc();
-    }
+    showPopup("💯 %");
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+document
+.querySelectorAll(".buttons button")
+.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        function() {
+
+            /*
+               SICHTBARER BUTTON-EFFEKT
+            */
+
+            this.classList.add("clicked");
+
+            setTimeout(() => {
+
+                this.classList.remove("clicked");
+
+            }, 150);
+
+
+            /* Zahl */
+
+            if (
+                this.dataset.value !== undefined
+            ) {
+
+                const value =
+                    this.dataset.value;
+
+
+                if (
+                    ["+","-","*","/"]
+                    .includes(value)
+                ) {
+
+                    chooseOperator(value);
+
+                } else {
+
+                    addNumber(value);
+
+                }
+
+            }
+
+
+            /* Aktionen */
+
+            if (
+                this.dataset.action ===
+                "clear"
+            ) {
+
+                clearCalculator();
+
+            }
+
+
+            if (
+                this.dataset.action ===
+                "backspace"
+            ) {
+
+                backspace();
+
+            }
+
+
+            if (
+                this.dataset.action ===
+                "percent"
+            ) {
+
+                percentage();
+
+            }
+
+
+            if (
+                this.dataset.action ===
+                "equals"
+            ) {
+
+                calculate();
+
+            }
+
+        }
+    );
 
 });
 
 
-/* ================= AURA CLICKER ================= */
+/* =====================================================
+   TASTATUR
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const key = event.key;
+
+
+        if (
+            key >= "0" &&
+            key <= "9"
+        ) {
+
+            addNumber(key);
+
+        }
+
+
+        if (key === ".") {
+
+            addNumber(".");
+
+        }
+
+
+        if (
+            ["+","-","*","/"]
+            .includes(key)
+        ) {
+
+            chooseOperator(key);
+
+        }
+
+
+        if (
+            key === "Enter" ||
+            key === "="
+        ) {
+
+            calculate();
+
+        }
+
+
+        if (key === "Backspace") {
+
+            backspace();
+
+        }
+
+
+        if (key === "Escape") {
+
+            clearCalculator();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   COMBO
+===================================================== */
+
+function addCombo() {
+
+    combo++;
+
+    updateCombo();
+
+    updateLevel();
+
+}
+
+
+function updateCombo() {
+
+    comboDisplay.textContent =
+        combo;
+
+}
+
+
+function updateLevel() {
+
+    level =
+        Math.floor(combo / 20) + 1;
+
+    levelDisplay.textContent =
+        level;
+
+}
+
+
+/* =====================================================
+   AURA CLICKER
+===================================================== */
 
 let aura = 0;
 
-function getAura() {
+document
+.getElementById("auraButton")
+.addEventListener(
+    "click",
+    function() {
 
-    aura++;
+        aura++;
 
-    document.getElementById("aura").textContent = aura;
+        document
+        .getElementById("aura")
+        .textContent = aura;
 
-    particles();
 
-    if (aura % 10 === 0) {
-        combo += 10;
+        combo += 2;
+
         updateCombo();
-        alert("🔥 +10 AURA 🔥");
+
+        updateLevel();
+
+
+        showPopup(
+            "+1 AURA 🗿"
+        );
+
+
+        createParticles(10);
+
     }
-}
+);
 
 
-/* ================= BOSS ================= */
+/* =====================================================
+   BOSS
+===================================================== */
 
 let bossHP = 100;
 
-function attackBoss() {
+document
+.getElementById("attackButton")
+.addEventListener(
+    "click",
+    function() {
 
-    let damage = Math.floor(Math.random() * 20) + 5;
+        const damage =
+            Math.floor(
+                Math.random() * 20
+            ) + 5;
 
-    bossHP -= damage;
 
-    if (bossHP <= 0) {
+        bossHP -= damage;
 
-        bossHP = 100;
 
-        document.getElementById("bossText").innerHTML =
-            "💀 BOSS DESTROYED 💀";
+        if (bossHP <= 0) {
 
-        megaParticles();
+            bossHP = 100;
 
-    } else {
+            document
+            .getElementById("bossText")
+            .textContent =
+                "💀 BOSS DESTROYED 💀";
 
-        document.getElementById("bossText").innerHTML =
-            "The boss has <b>" + bossHP + " HP</b>";
+            showPopup(
+                "🔥 BOSS DELETED 🔥"
+            );
+
+            createParticles(50);
+
+        }
+
+        else {
+
+            document
+            .getElementById("bossText")
+            .textContent =
+                "Boss HP: " + bossHP;
+
+        }
+
+
+        document
+        .getElementById("bossHP")
+        .value = bossHP;
+
+
+        combo += damage;
+
+        updateCombo();
+
+        updateLevel();
+
+    }
+);
+
+
+/* =====================================================
+   POPUP TEXT
+===================================================== */
+
+function showPopup(text) {
+
+    const popup =
+        document.createElement("div");
+
+    popup.className =
+        "popup";
+
+    popup.textContent =
+        text;
+
+
+    popup.style.left =
+        Math.random() * 80 + 10 + "vw";
+
+    popup.style.top =
+        Math.random() * 70 + 10 + "vh";
+
+
+    document.body.appendChild(
+        popup
+    );
+
+
+    setTimeout(
+        () => popup.remove(),
+        1000
+    );
+
+}
+taschenrechner-joken-
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+function createParticles(amount) {
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.left =
+            window.innerWidth / 2 +
+            "px";
+
+
+        particle.style.top =
+            window.innerHeight / 2 +
+            "px";
+
+
+        particle.style.background =
+            [
+                "#ff00cc",
+                "#00ffff",
+                "#ffff00",
+                "#00ff66",
+                "#ffffff"
+            ][
+                Math.floor(
+                    Math.random() * 5
+                )
+            ];
+
+
+        particle.style.setProperty(
+            "--x",
+            Math.random() * 500 - 250
+        );
+
+
+        particle.style.setProperty(
+            "--y",
+            Math.random() * 500 - 250
+        );
+
+
+        document.body.appendChild(
+            particle
+        );
+
+
+        setTimeout(
+            () => particle.remove(),
+            700
+        );
+
     }
 
-    document.getElementById("bossHP").value = bossHP;
-
-    combo += damage;
-    updateCombo();
-
-    particles();
 }
 
 
-/* ================= PARTICLES ================= */
+/* =====================================================
+   RANDOM BRAINROT
+===================================================== */
 
-function particles() {
+const words = [
 
-    for (let i = 0; i < 8; i++) {
+    "SKIBIDI 💀",
+    "SIGMA 🗿",
+    "GYATT 🍑",
+    "OHIO 👹",
+    "RIZZ 🔥",
+    "+100 AURA",
+    "WHAT THE SIGMA",
+    "ABSOLUTE CINEMA",
+    "BRO 💀",
+    "W CALCULATOR"
 
-        const p = document.createElement("div");
+];
 
-        p.className = "particle";
 
-        p.style.left = Math.random() * 100 + "vw";
-        p.style.top = Math.random() * 100 + "vh";
+setInterval(
+    function() {
+
+        const text =
+            document.createElement(
+                "div"
+            );
+
+
+        text.textContent =
+            words[
+                Math.floor(
+                    Math.random() *
+                    words.length
+                )
+            ];
+
+
+        text.style.position =
+            "fixed";
+
+
+        text.style.left =
+            Math.random() * 90 +
+            "vw";
+
+
+        text.style.top =
+            Math.random() * 90 +
+            "vh";
+
+
+        text.style.color =
+            [
+                "#ff00cc",
+                "#00ffff",
+                "#ffff00",
+                "#00ff66"
+            ][
+                Math.floor(
+                    Math.random() * 4
+                )
+            ];
+
+
+        text.style.fontSize =
+            Math.random() * 25 +
+            15 +
+            "px";
+
+
+        text.style.fontWeight =
+            "1000";
+
+
+        text.style.zIndex =
+            "999";
+
+
+        text.style.pointerEvents =
+            "none";
+
+
+        document.body.appendChild(
+            text
+        );
+
+
+        setTimeout(
+            () => text.remove(),
+            1200
+        );
+
+    },
+    1200
+);
+
+
+/* START */
+
+updateDisplay();
+
+</script>
+
+</body>
+</html>
 ```
