@@ -1,0 +1,694 @@
+```html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧠 BRAINROT CALCULATOR 🧠</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap');
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at 20% 20%, #ff00cc 0 5%, transparent 25%),
+        radial-gradient(circle at 80% 30%, #00ffff 0 5%, transparent 25%),
+        radial-gradient(circle at 50% 90%, #7d00ff 0 5%, transparent 30%),
+        #090014;
+    font-family: "Comic Neue", cursive;
+    color: white;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: gridMove 5s linear infinite;
+}
+
+@keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 30px 30px; }
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    text-align: center;
+    padding: 18px;
+    position: relative;
+    z-index: 5;
+}
+
+.title {
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(20px, 4vw, 45px);
+    color: #fff;
+    text-shadow:
+        4px 4px #ff00cc,
+        -4px -4px #00ffff,
+        0 0 25px #ff00cc;
+    animation: titleShake .35s infinite alternate;
+}
+
+.subtitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffff00;
+    text-shadow: 2px 2px #ff00cc;
+}
+
+@keyframes titleShake {
+    from { transform: rotate(-1deg); }
+    to { transform: rotate(1deg); }
+}
+
+/* ================= LAYOUT ================= */
+
+.main {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(320px, 500px) minmax(180px, 1fr);
+    gap: 25px;
+    max-width: 1400px;
+    margin: auto;
+    padding: 10px 25px 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ================= BRAINROT CARDS ================= */
+
+.brainrot {
+    position: relative;
+    min-height: 130px;
+    border: 4px solid white;
+    border-radius: 20px;
+    padding: 15px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff00cc, #6500ff);
+    box-shadow:
+        0 0 10px #ff00cc,
+        0 0 30px #6500ff,
+        8px 8px 0 #00ffff;
+    animation: float 2s ease-in-out infinite alternate;
+}
+
+.brainrot:nth-child(2) {
+    background: linear-gradient(135deg, #00c8ff, #003cff);
+    animation-delay: .4s;
+}
+
+.brainrot:nth-child(3) {
+    background: linear-gradient(135deg, #ff8a00, #ff0055);
+    animation-delay: .8s;
+}
+
+@keyframes float {
+    from { transform: translateY(-5px) rotate(-1deg); }
+    to { transform: translateY(5px) rotate(1deg); }
+}
+
+.brainrot h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+}
+
+.big-emoji {
+    font-size: 55px;
+    position: absolute;
+    right: 8px;
+    bottom: -8px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ================= CALCULATOR ================= */
+
+.calculator {
+    background: rgba(10, 5, 25, .92);
+    border: 5px solid #fff;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow:
+        0 0 15px #00ffff,
+        0 0 50px #ff00cc,
+        15px 15px 0 #ff00cc;
+    transform: rotate(.5deg);
+}
+
+.calc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calc-logo {
+    font-family: "Press Start 2P";
+    font-size: 13px;
+    color: #00ffff;
+}
+
+.level {
+    background: #ff00cc;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.display {
+    margin: 15px 0;
+    background: #020207;
+    border: 4px solid #00ffff;
+    border-radius: 15px;
+    min-height: 110px;
+    padding: 15px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.history {
+    height: 25px;
+    color: #888;
+    font-size: 18px;
+}
+
+.result {
+    font-family: "Press Start 2P";
+    color: #00ff66;
+    font-size: clamp(18px, 4vw, 30px);
+    overflow-x: auto;
+    white-space: nowrap;
+    text-shadow: 0 0 10px #00ff66;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    border: 3px solid white;
+    border-radius: 15px;
+    min-height: 65px;
+    font-family: "Comic Neue";
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    background: #261040;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #000;
+    transition: .08s;
+}
+
+button:hover {
+    transform: scale(1.06) rotate(-2deg);
+    background: #4d147d;
+    box-shadow: 0 0 20px #ff00cc;
+}
+
+button:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #000;
+}
+
+.operator {
+    background: #ff00cc;
+}
+
+.equals {
+    background: #00aaff;
+}
+
+.danger {
+    background: #ff1744;
+}
+
+.zero {
+    grid-column: span 2;
+}
+
+/* ================= MINI GAMES ================= */
+
+.game {
+    background: rgba(0,0,0,.75);
+    border: 3px dashed #ffff00;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+}
+
+.game h3 {
+    color: #ffff00;
+    margin-top: 0;
+}
+
+.game button {
+    min-height: 50px;
+    font-size: 18px;
+    width: 100%;
+}
+
+.score {
+    font-size: 30px;
+    color: #00ffff;
+    font-family: "Press Start 2P";
+}
+
+/* ================= FLOATING BRAINROT ================= */
+
+.floating {
+    position: fixed;
+    z-index: 1;
+    font-size: 45px;
+    pointer-events: none;
+    animation: fly 8s linear infinite;
+}
+
+@keyframes fly {
+    0% {
+        transform: translate(-100px, 100vh) rotate(0);
+    }
+    100% {
+        transform: translate(110vw, -100px) rotate(720deg);
+    }
+}
+
+/* ================= PARTICLES ================= */
+
+.particle {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 999;
+    animation: particle .8s forwards;
+}
+
+@keyframes particle {
+    to {
+        transform:
+            translate(
+                calc((var(--x) - 50) * 5px),
+                calc((var(--y) - 50) * 5px)
+            )
+            rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 900px) {
+    .main {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+    }
+
+    .side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .brainrot {
+        min-height: 110px;
+    }
+}
+
+@media(max-width: 500px) {
+    .side {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator {
+        padding: 12px;
+    }
+
+    button {
+        min-height: 58px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="floating">💀</div>
+<div class="floating" style="animation-delay:2s;">🗿</div>
+<div class="floating" style="animation-delay:4s;">🍌</div>
+<div class="floating" style="animation-delay:6s;">🔥</div>
+
+<header class="header">
+    <div class="title">🧠 BRAINROT CALCULATOR 🧠</div>
+    <div class="subtitle">
+        SIGMA MATHS • +1000 AURA • NO THOUGHTS
+    </div>
+</header>
+
+<main class="main">
+
+    <!-- LEFT SIDE -->
+
+    <aside class="side">
+
+        <div class="brainrot">
+            <h2>🗿 SIGMA MODE</h2>
+            <p>Calculate like a TRUE SIGMA.</p>
+            <div class="big-emoji">🗿</div>
+        </div>
+
+        <div class="brainrot">
+            <h2>💀 SKIBIDI</h2>
+            <p>Toilet detected.</p>
+            <div class="big-emoji">🚽</div>
+        </div>
+
+        <div class="game">
+            <h3>⚡ AURA CLICKER</h3>
+            <div class="score" id="aura">0</div>
+            <p>Click for AURA</p>
+            <button onclick="getAura()">+ AURA 💀</button>
+        </div>
+
+    </aside>
+
+
+    <!-- CALCULATOR -->
+
+    <section class="calculator">
+
+        <div class="calc-top">
+            <div class="calc-logo">🧮 CALC.EXE</div>
+            <div class="level">LVL <span id="level">1</span></div>
+        </div>
+
+        <div class="display">
+            <div class="history" id="history"></div>
+            <div class="result" id="display">0</div>
+        </div>
+
+        <div class="buttons">
+
+            <button class="danger" onclick="clearCalc()">AC</button>
+            <button onclick="backspace()">⌫</button>
+            <button onclick="percent()">%</button>
+            <button class="operator" onclick="operator('/')">÷</button>
+
+            <button onclick="number('7')">7</button>
+            <button onclick="number('8')">8</button>
+            <button onclick="number('9')">9</button>
+            <button class="operator" onclick="operator('*')">×</button>
+
+            <button onclick="number('4')">4</button>
+            <button onclick="number('5')">5</button>
+            <button onclick="number('6')">6</button>
+            <button class="operator" onclick="operator('-')">−</button>
+
+            <button onclick="number('1')">1</button>
+            <button onclick="number('2')">2</button>
+            <button onclick="number('3')">3</button>
+            <button class="operator" onclick="operator('+')">+</button>
+
+            <button class="zero" onclick="number('0')">0</button>
+            <button onclick="number('.')">.</button>
+            <button class="equals" onclick="calculate()">=</button>
+
+        </div>
+
+        <div style="text-align:center;margin-top:15px;color:#ffff00;">
+            🔥 COMBO: <span id="combo">0</span> 🔥
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT SIDE -->
+
+    <aside class="side">
+
+        <div class="brainrot">
+            <h2>🔥 GYATT</h2>
+            <p>Mathematics has never been this dangerous.</p>
+            <div class="big-emoji">🍑</div>
+        </div>
+
+        <div class="brainrot">
+            <h2>⚡ OHIO</h2>
+            <p>You entered the calculator. There is no escape.</p>
+            <div class="big-emoji">👹</div>
+        </div>
+
+        <div class="game">
+            <h3>💀 BRAINROT BOSS</h3>
+            <p id="bossText">The boss has <b>100 HP</b></p>
+            <button onclick="attackBoss()">ATTACK 🗿</button>
+            <div style="margin-top:10px">
+                HP:
+                <progress id="bossHP" value="100" max="100"></progress>
+            </div>
+        </div>
+
+    </aside>
+
+</main>
+
+<script>
+
+/* ================= CALCULATOR ================= */
+
+let current = "";
+let previous = "";
+let currentOperator = null;
+let combo = 0;
+let level = 1;
+
+const display = document.getElementById("display");
+const history = document.getElementById("history");
+
+function updateDisplay() {
+    display.textContent = current || "0";
+}
+
+function number(n) {
+
+    if (n === "." && current.includes(".")) return;
+
+    if (current === "0" && n !== ".") {
+        current = n;
+    } else {
+        current += n;
+    }
+
+    updateDisplay();
+    combo++;
+    updateCombo();
+    particles();
+}
+
+function operator(op) {
+
+    if (!current && !previous) return;
+
+    if (current) {
+        previous = current;
+        current = "";
+    }
+
+    currentOperator = op;
+
+    history.textContent =
+        previous + " " + symbol(op);
+
+    updateDisplay();
+}
+
+function symbol(op) {
+    if (op === "*") return "×";
+    if (op === "/") return "÷";
+    if (op === "-") return "−";
+    return "+";
+}
+
+function calculate() {
+
+    if (!previous || !current || !currentOperator) return;
+
+    let a = parseFloat(previous);
+    let b = parseFloat(current);
+    let result;
+
+    switch(currentOperator) {
+        case "+": result = a + b; break;
+        case "-": result = a - b; break;
+        case "*": result = a * b; break;
+        case "/":
+            if (b === 0) {
+                result = "💀";
+            } else {
+                result = a / b;
+            }
+            break;
+    }
+
+    history.textContent =
+        previous + " " + symbol(currentOperator) + " " + current + " =";
+
+    current = String(result);
+    previous = "";
+    currentOperator = null;
+
+    combo += 5;
+    level = Math.floor(combo / 20) + 1;
+
+    updateDisplay();
+    updateCombo();
+
+    document.getElementById("level").textContent = level;
+
+    megaParticles();
+}
+
+function clearCalc() {
+    current = "";
+    previous = "";
+    currentOperator = null;
+    history.textContent = "";
+    updateDisplay();
+}
+
+function backspace() {
+    current = current.slice(0, -1);
+    updateDisplay();
+}
+
+function percent() {
+
+    if (current) {
+        current = String(parseFloat(current) / 100);
+        updateDisplay();
+    }
+}
+
+function updateCombo() {
+    document.getElementById("combo").textContent = combo;
+}
+
+
+/* ================= KEYBOARD ================= */
+
+document.addEventListener("keydown", e => {
+
+    if (!isNaN(e.key)) {
+        number(e.key);
+    }
+
+    if (["+", "-", "*", "/"].includes(e.key)) {
+        operator(e.key);
+    }
+
+    if (e.key === "Enter" || e.key === "=") {
+        calculate();
+    }
+
+    if (e.key === "Backspace") {
+        backspace();
+    }
+
+    if (e.key === "Escape") {
+        clearCalc();
+    }
+
+});
+
+
+/* ================= AURA CLICKER ================= */
+
+let aura = 0;
+
+function getAura() {
+
+    aura++;
+
+    document.getElementById("aura").textContent = aura;
+
+    particles();
+
+    if (aura % 10 === 0) {
+        combo += 10;
+        updateCombo();
+        alert("🔥 +10 AURA 🔥");
+    }
+}
+
+
+/* ================= BOSS ================= */
+
+let bossHP = 100;
+
+function attackBoss() {
+
+    let damage = Math.floor(Math.random() * 20) + 5;
+
+    bossHP -= damage;
+
+    if (bossHP <= 0) {
+
+        bossHP = 100;
+
+        document.getElementById("bossText").innerHTML =
+            "💀 BOSS DESTROYED 💀";
+
+        megaParticles();
+
+    } else {
+
+        document.getElementById("bossText").innerHTML =
+            "The boss has <b>" + bossHP + " HP</b>";
+    }
+
+    document.getElementById("bossHP").value = bossHP;
+
+    combo += damage;
+    updateCombo();
+
+    particles();
+}
+
+
+/* ================= PARTICLES ================= */
+
+function particles() {
+
+    for (let i = 0; i < 8; i++) {
+
+        const p = document.createElement("div");
+
+        p.className = "particle";
+
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.top = Math.random() * 100 + "vh";
+```
